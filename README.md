@@ -1,7 +1,7 @@
 # LN-VANITY-PUBKEY
 
 Guesses millions of combinations to find a Lightning private key so the public key starts with the right combination.
-Uses multi-threading to be as fast as possible.
+Multi-threaded, speed-optimized.
 
 ## Build
 
@@ -12,8 +12,7 @@ git clone https://github.com/SeverinAlexB/ln-vanity-pubkey.git
 cd ln-vanity-pubkey
 ```
 
-After that, you can run `cargo run --release -- --help`. See example above
-for more information.
+After that, you can run `cargo run --release -- --help`.
 
 ## Usage
 
@@ -68,8 +67,8 @@ For this calculation, the processing power of the Ryzen5 3600 with 251,148 guess
 
 | Letter | Guesses required     | Time  |
 |--------|----------------------|-------|
-| 2      | 2^8 = 256            | <1s   |
-| 4      | 2^16 = 65,536        | <1s   |
+| 2      | 2^8 = 256            | <5s   |
+| 4      | 2^16 = 65,536        | <5s   |
 | 6      | 2^24 = 16.7 Millions | 1.11m |
 | 8      | 2^32 = 4.3 Billions  | 4.75h |
 | 10     | 2^40 = 1.1 Trillions | 50.6d |
