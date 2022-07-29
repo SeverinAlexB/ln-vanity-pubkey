@@ -3,7 +3,6 @@ use crate::derivation::{is_key_match};
 use bitcoin::{secp256k1::Secp256k1};
 use bitcoin::hashes::hex::{FromHex};
 use rand::Rng;
-use futures::future::FutureExt;
 use std::thread;
 use std::time::Duration;
 
@@ -25,6 +24,7 @@ pub fn guess_pubkey(prefix: &str) -> GuessResult {
 
     let mut generator = rand::thread_rng();
 
+    #[allow(unused_assignments)]
     let mut mnemonic: Option<Mnemonic> = None;
     let mut counter = 0;
     loop {
@@ -45,14 +45,14 @@ pub fn guess_pubkey(prefix: &str) -> GuessResult {
     }
 }
 
-pub fn guess_pubkey_threaded(prefix: &str, thread_count: u16) -> Option<GuessResult> {
+pub fn guess_pubkey_threaded(prefix: &str, thread_count: u8) -> Option<GuessResult> {
     let mut handles: Vec<std::thread::JoinHandle<GuessResult>> = vec![];
 
-    for i in 0..thread_count {
+    for _ in 0..thread_count {
         let prefix_clone = String::from(prefix);
         let handle = thread::spawn(move || {
             let pref = prefix_clone.as_str();
-            println!("Start thread {}", i + 1);
+            // println!("Start thread {}", i + 1);
             guess_pubkey(pref)
         });
         handles.push(handle)
@@ -71,15 +71,13 @@ pub fn guess_pubkey_threaded(prefix: &str, thread_count: u16) -> Option<GuessRes
                     let mut guess = res.expect("No result");
                     guess.guesses *= thread_count as u128;
                     guess_result = Some(guess);
-
-                    println!("Finished threads");
-                    println!();
                 }
             });
             break
         }
     };
-
+    println!("Finished threads");
+    println!();
     guess_result
 }
 

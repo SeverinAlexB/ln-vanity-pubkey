@@ -3,6 +3,48 @@
 Guesses millions of combinations to find a Lightning private key so the public key starts with the right combination.
 Uses multi-threading to be as fast as possible.
 
+## Usage
+
+```text
+USAGE:
+    ln-vanity-pubkey [OPTIONS] [prefix]
+
+ARGS:
+    <prefix>    Prefix in HEX.
+
+OPTIONS:
+    -h, --help                Print help information
+    -t, --threads <NUMBER>    Set the number of threads used. Default is the number of thread supported on the
+                              machine. [default: 8]
+    -V, --version             Print version information
+```
+
+### Example
+```bash
+> cargo run --release -- FFFF
+
+Start guessing pubkey with prefix FFFF.
+Use 1 threads
+Finished threads
+
+Guessing took 3.009831139s, 98845 guesses
+32948 guesses per second
+Matched FFFF -> 03FFFF0F7808D4092E0D4DBAD8C47A062B0247C3E21886E025BF585582D67BFD9F
+Mnemonic: sad desk shield chief admit east project congress gap must captain fly page project spawn paddle theory fold neglect dial world husband frost day
+```
+
+## Build
+
+The [rust toolchain](https://doc.rust-lang.org/cargo/getting-started/installation.html) is required to build the project.
+
+```bash
+git clone https://github.com/SeverinAlexB/ln-vanity-pubkey.git
+cd ln-vanity-pubkey
+```
+
+After that, you can run `cargo run --release -- --help`. See example above
+for more information.
+
 ## Speed
 
 ### Guesses
