@@ -9,4 +9,6 @@ edition = "2021"
 bitcoin = "0.28.1"
 bip39 = "1.0.1"
 rand = "0.8.5"
-tokio = "1.20.1"
+futures = "0.3.21"
+tokio = { version = "1.20.1", features = ["full"] }
+tokio-rayon = "2.1.0"

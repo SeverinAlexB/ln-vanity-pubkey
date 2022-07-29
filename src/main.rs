@@ -2,23 +2,34 @@ extern crate core;
 
 use std::time::Instant;
 use crate::derivation::node_keys2;
-use crate::multithreading::guess_pubkey;
+use crate::multithreading::{guess_pubkey_threaded};
 
 mod derivation;
 mod multithreading;
 
+
 fn main() {
-    println!("Start guessing");
-    let prefix = "F00DBABE";
+    let prefix = "F0F0F0";
+    let thread_count = 4;
+
+    println!("Start guessing pubkey with prefix {}.", prefix);
+    println!("Use {} threads", thread_count);
+
     let start = Instant::now();
-    let res = guess_pubkey(prefix, 100000000);
+
+
+    let res = guess_pubkey_threaded(prefix, 4);
+
     let duration = start.elapsed();
-    println!("Guessing took {:?}", duration);
+
     match res {
-        Some(mnemonic) => {
-            let (pubkey, _) = node_keys2( mnemonic.to_entropy().as_slice());
+        Some(guess_result) => {
+            println!("Guessing took {duration:?},  after {} guesses", guess_result.guesses);
+            println!("{} guesses per second", guess_result.guesses/(duration.as_secs() as u128));
+            let mnemonic = guess_result.mnemonic.expect("No mnemonic found.");
+            let (pubkey, _) = node_keys2(mnemonic.to_entropy().as_slice());
             println!("Match prefix {} -> {}", prefix, pubkey);
-            println!("Mnemonic: {}", mnemonic)
+            println!("Mnemonic: {}", mnemonic.to_string())
         },
         None => println!("Didn't find mnemonic")
     }
