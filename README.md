@@ -14,8 +14,8 @@ ARGS:
 
 OPTIONS:
     -h, --help                Print help information
-    -t, --threads <NUMBER>    Set the number of threads used. Default is the number of thread supported on the
-                              machine. [default: 8]
+    -t, --threads <NUMBER>    Set the number of threads used. Default is the number of 
+                              thread supported on the machine. [default: 8]
     -V, --version             Print version information
 ```
 
