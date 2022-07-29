@@ -52,7 +52,7 @@ TDB
 
 ### Pubkey letters
 
-Time to estimate a pubkey start thats with x specific letters. 2 letters are 1 byte.
+Time to estimate a pubkey that starts with x specific letters. 2 letters are 1 byte.
 For this calculation, the processing power of the Ryzen5 3600 with 251,148 guesses per second has been used.
 
 > Important: The first two letters of the pubkey are always 02 or 03. `ln-vanity-pubkey` try to guess these, only
