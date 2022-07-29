@@ -18,7 +18,7 @@ fn main() {
     let start = Instant::now();
 
 
-    let res = guess_pubkey_threaded(prefix, 4);
+    let res = guess_pubkey_threaded(prefix, thread_count);
 
     let duration = start.elapsed();
 
