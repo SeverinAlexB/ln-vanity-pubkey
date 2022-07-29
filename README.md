@@ -3,6 +3,18 @@
 Guesses millions of combinations to find a Lightning private key so the public key starts with the right combination.
 Uses multi-threading to be as fast as possible.
 
+## Build
+
+The [rust toolchain](https://doc.rust-lang.org/cargo/getting-started/installation.html) is required to build the project.
+
+```bash
+git clone https://github.com/SeverinAlexB/ln-vanity-pubkey.git
+cd ln-vanity-pubkey
+```
+
+After that, you can run `cargo run --release -- --help`. See example above
+for more information.
+
 ## Usage
 
 ```text
@@ -33,17 +45,9 @@ Matched FFFF -> 03FFFF0F7808D4092E0D4DBAD8C47A062B0247C3E21886E025BF585582D67BFD
 Mnemonic: sad desk shield chief admit east project congress gap must captain fly page project spawn paddle theory fold neglect dial world husband frost day
 ```
 
-## Build
+### Add to CLN
 
-The [rust toolchain](https://doc.rust-lang.org/cargo/getting-started/installation.html) is required to build the project.
-
-```bash
-git clone https://github.com/SeverinAlexB/ln-vanity-pubkey.git
-cd ln-vanity-pubkey
-```
-
-After that, you can run `cargo run --release -- --help`. See example above
-for more information.
+TDB
 
 ## Speed
 
