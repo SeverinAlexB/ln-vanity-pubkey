@@ -84,7 +84,6 @@ pub fn guess_pubkey_threaded(prefix: &str, thread_count: u8) -> Option<GuessResu
 #[cfg(test)]
 mod tests {
     // use core::slice::SlicePattern;
-    use bitcoin::hashes::hex::ToHex;
     use crate::derivation::node_keys2;
     use std::time::{Instant};
     use super::*;
@@ -96,7 +95,7 @@ mod tests {
         let res = guess_pubkey(prefix);
         let duration = start.elapsed();
         println!("Guessing took {:?}", duration);
-        match res {
+        match res.mnemonic {
             Some(mnemonic) => {
                 let (pubkey, _) = node_keys2( mnemonic.to_entropy().as_slice());
                 println!("Match prefix {} -> {}", prefix, pubkey);
