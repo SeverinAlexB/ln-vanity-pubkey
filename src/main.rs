@@ -1,6 +1,8 @@
 extern crate core;
 
 use std::time::Instant;
+use bip39::Mnemonic;
+use bitcoin::hashes::hex::ToHex;
 use crate::derivation::node_keys2;
 use crate::multithreading::{guess_pubkey_threaded};
 use clap::{arg, command, value_parser};
@@ -8,6 +10,22 @@ use clap::{arg, command, value_parser};
 mod derivation;
 mod multithreading;
 
+
+fn mnemonic_to_linux_hex(mnemonic: Mnemonic) -> String {
+    let prefix = "\\x";
+    let entropy = mnemonic.to_entropy();
+    let sliced_entropy = entropy.as_slice();
+    let hex = sliced_entropy.to_hex();
+    let chars = hex.chars();
+    let mut linux_hex = String::new();
+    for (i, c) in chars.enumerate() {
+        if i % 2 == 0 {
+            linux_hex.push_str(prefix);
+        }
+        linux_hex.push(c)
+    };
+    linux_hex
+}
 
 fn main() {
     let num_cores = num_cpus::get();
@@ -44,7 +62,8 @@ fn main() {
             let mnemonic = guess_result.mnemonic.expect("No mnemonic found.");
             let (pubkey, _) = node_keys2(mnemonic.to_entropy().as_slice());
             println!("Matched {} -> {}", prefix, pubkey.to_string().to_uppercase());
-            println!("Mnemonic: {}", mnemonic.to_string())
+            println!("Mnemonic: {}", mnemonic.to_string());
+            println!("CLN command: echo -n -e '{}' > hsm_secret", mnemonic_to_linux_hex(mnemonic))
         },
         None => println!("Didn't find mnemonic")
     }
