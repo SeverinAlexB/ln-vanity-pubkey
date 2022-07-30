@@ -1,6 +1,6 @@
 # LN-VANITY-PUBKEY
 
-Guesses millions of combinations to find a Lightning private key so the public key starts with the right combination.
+Guesses millions of combinations to find a Core-Lightning seed so the public key starts with the right combination.
 Multi-threaded, speed-optimized.
 
 ## Build
@@ -34,19 +34,36 @@ OPTIONS:
 ```bash
 > cargo run --release -- FFFF
 
-Start guessing pubkey with prefix FFFF.
-Use 1 threads
+Start guessing pubkey with prefix FFFFFF.
+Use 8 threads
 Finished threads
 
-Guessing took 3.009831139s, 98845 guesses
-32948 guesses per second
-Matched FFFF -> 03FFFF0F7808D4092E0D4DBAD8C47A062B0247C3E21886E025BF585582D67BFD9F
-Mnemonic: sad desk shield chief admit east project congress gap must captain fly page project spawn paddle theory fold neglect dial world husband frost day
+Guessing took 69.204873452s, 8785904 guesses
+127331 guesses per second
+Matched FFFFFF -> 03FFFFFF7F383CA8F171759320A6143CC34E4E3D5402942CCF6BC8050E8266C4D9
+Mnemonic: witness penalty kingdom super street occur guilt room crumble absorb pulse awesome ordinary minimum flip rhythm romance siege motor excess lift jewel spike protect
+CLN command: echo -n -e '\xfc\xb4\x51\xea\xec\xdd\x6f\x31\x99\xed\xdf\x34\xc0\x1a\xb6\x08\x49\xc5\x1a\x16\x45\xc6\xbb\x99\x02\x41\xa7\x48\x16\xef\xf4\x75' > hsm_secret
 ```
 
 ### Add to CLN
 
-TDB
+Use the `CLN command` in the output of the result to write your new seed to the hsm_secret file. The hsm_secret is 
+located at `.lightning/bitcoin/hsm_secret`. After the secret has been written, your node can be started as regular.
+
+>  **🛑️** IMPORTANT: Do NOT replace your seed on an already existing node. This can lead to the loss of all funds!
+
+Use the cli to check if the pubkey has been successfully applied.
+
+```bash
+> lightning-cli getinfo
+
+{
+   "id": "03FFFFFF7F383CA8F171759320A6143CC34E4E3D5402942CCF6BC8050E8266C4D9",
+   "alias": "BIZARRENIGHT-.11.0.1-62-g92cc76a",
+   "color": "02ff51",
+   ....
+}
+```
 
 ## Speed
 
