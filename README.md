@@ -32,7 +32,7 @@ OPTIONS:
 
 ### Example
 ```bash
-> cargo run --release -- FFFF
+> cargo run --release -- FFFFFF
 
 Start guessing pubkey with prefix FFFFFF.
 Use 8 threads

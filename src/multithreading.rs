@@ -2,9 +2,10 @@ use bip39::Mnemonic;
 use crate::derivation::{is_key_match};
 use bitcoin::{secp256k1::Secp256k1};
 use bitcoin::hashes::hex::{FromHex};
-use rand::Rng;
 use std::thread;
 use std::time::Duration;
+use rand::rngs::StdRng;
+use rand::{Rng, SeedableRng};
 
 
 fn hex_string_to_u8(value: &str) -> Vec<u8> {
@@ -22,12 +23,14 @@ pub fn guess_pubkey(prefix: &str) -> GuessResult {
     let prefix_u8 = hex_string_to_u8(prefix);
     let prefix_slice = prefix_u8.as_slice();
 
-    let mut generator = rand::thread_rng();
+    // let mut generator = rand::thread_rng();
+    let mut generator = StdRng::from_entropy();
 
     #[allow(unused_assignments)]
     let mut mnemonic: Option<Mnemonic> = None;
     let mut counter = 0;
     loop {
+
         let seed = generator.gen::<[u8; 32]>();
         let is_match = is_key_match(&seed, prefix_slice, &secp_ctx);
         counter +=1;
