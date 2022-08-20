@@ -45,6 +45,15 @@ Mnemonic: witness penalty kingdom super street occur guilt room crumble absorb p
 CLN command: echo -n -e '\xfc\xb4\x51\xea\xec\xdd\x6f\x31\x99\xed\xdf\x34\xc0\x1a\xb6\x08\x49\xc5\x1a\x16\x45\xc6\xbb\x99\x02\x41\xa7\x48\x16\xef\xf4\x75' > hsm_secret
 ```
 
+### Entropy
+
+Make sure your machine has [enough entropy](https://blog.cloudflare.com/ensuring-randomness-with-linuxs-random-number-generator/). 
+This linux command should return a number close to 4,096. Otherwise your keys will be weak.
+
+```bash
+cat /proc/sys/kernel/random/entropy_avail
+```
+
 ### Add to CLN
 
 Use the `CLN command` in the output of the result to write your new seed to the hsm_secret file. The hsm_secret is 
