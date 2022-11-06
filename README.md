@@ -48,7 +48,7 @@ CLN command: echo -n -e '\xfc\xb4\x51\xea\xec\xdd\x6f\x31\x99\xed\xdf\x34\xc0\x1
 ### Entropy
 
 Make sure your machine has [enough entropy](https://blog.cloudflare.com/ensuring-randomness-with-linuxs-random-number-generator/). 
-This linux command should return a number close to 4,096. Otherwise your keys will be weak.
+This linux command should return at least 256. Otherwise your keys will be weak.
 
 ```bash
 cat /proc/sys/kernel/random/entropy_avail
